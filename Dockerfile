@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 RUN apk update && \
-    apk add gettext libintl
+    apk add esh
     
 COPY nginx.templ.conf /etc/nginx/nginx.templ.conf
-CMD ["/bin/sh", "-c", "envsubst '${HOST}' < /etc/nginx/nginx.templ.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "esh -o /etc/nginx/nginx.conf /etc/nginx/nginx.templ.conf && nginx -g 'daemon off;'"]
