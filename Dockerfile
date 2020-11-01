@@ -2,6 +2,7 @@ FROM nginx:alpine
 
 RUN apk update && \
     apk add esh
-    
-COPY nginx.templ.conf /etc/nginx/nginx.templ.conf
-CMD ["/bin/sh", "-c", "esh -o /etc/nginx/nginx.conf /etc/nginx/nginx.templ.conf && nginx -g 'daemon off;'"]
+
+COPY entrypoint.sh entrypoint.sh
+COPY nginx.conf.esh /etc/nginx/nginx.conf.esh
+ENTRYPOINT [ "./entrypoint.sh" ]
