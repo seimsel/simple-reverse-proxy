@@ -12,7 +12,7 @@ http {
   server {
     listen 80;
 
-      <% if [ $AUTH_URL ]; then %>
+      <% if [! -z "$AUTH_URL" ]; then -%>
       auth_request /validate;
 
       location = /validate {
@@ -34,7 +34,7 @@ http {
       location @error401 {
           return 302 <% echo $VOUCH_URL %>/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err;
       }
-      <% fi %>
+      <% fi -%>
     
     location / {
       proxy_pass       <% echo $HOST %>;
