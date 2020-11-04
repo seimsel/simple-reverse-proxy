@@ -12,7 +12,7 @@ http {
   server {
     listen 80;
 
-    <% if [! -z "$VOUCH_URL" ]; then -%>
+    <% if [ ! -z "$VOUCH_URL" ]; then -%>
     location = /validate {
       proxy_pass <%= "$VOUCH_URL" %>/validate;
       proxy_set_header Host $http_host;
