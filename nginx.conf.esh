@@ -13,6 +13,8 @@ http {
     listen 80;
 
     <% if [ ! -z "$VOUCH_URL" ]; then -%>
+    auth_request /validate;
+
     location = /validate {
       proxy_pass <%= "$VOUCH_URL" %>/validate;
       proxy_set_header Host $http_host;
@@ -33,10 +35,6 @@ http {
     <% fi -%>
 
     location / {
-      <% if [ "$VOUCH_URL" ]; then -%>
-      auth_request /validate;
-      <% fi -%>
-
       proxy_pass       <%= "$HOST" %>;
       proxy_set_header Host              $http_host;
       proxy_set_header X-Real-IP         $remote_addr;
