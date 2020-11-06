@@ -16,7 +16,7 @@ http {
     auth_request /validate;
 
     location = /validate {
-      proxy_pass <%= "$VOUCH_URL" %>/validate;
+      proxy_pass <%= "$VOUCH_HOST" %>/validate;
       proxy_set_header Host $http_host;
 
       proxy_pass_request_body off;
